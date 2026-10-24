@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react'
 import { motion } from 'framer-motion'
-import Logo, { LogoMarkTight } from './Logo'
+import Logo from './Logo'
 import { services, site } from '../data/content'
 import { caseStudies } from '../data/caseStudies'
 
@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer__top">
           <div className="footer__brand">
-            <Logo light size={30} />
+            <Logo light height={32} />
             <p>AI-native software studio building web, mobile, ERP, CRM and AI systems for ambitious businesses, at light speed.</p>
             <Link to="/contact" className="btn btn--green">Start your first sprint <ArrowUpRight size={16} /></Link>
           </div>
@@ -38,7 +38,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Oversized wordmark drawn exactly like the logo: green "A" mark followed by "venSofts". */}
+        {/* Oversized brand wordmark, from the official logo file. */}
         <motion.div
           className="footer__big"
           aria-hidden="true"
@@ -47,8 +47,7 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
         >
-          <LogoMarkTight className="footer__big-mark" color="#3fb893" />
-          <span className="footer__big-text">venSofts</span>
+          <img src="/brand/logo-light.png" alt="" className="footer__big-img" draggable="false" />
         </motion.div>
 
         <div className="footer__bottom">

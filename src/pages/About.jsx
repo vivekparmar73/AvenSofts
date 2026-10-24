@@ -27,7 +27,7 @@ export default function About() {
       <section className="section section--flush-top">
         <div className="container about-intro">
           <Reveal className="about-intro__card">
-            <LogoMark size={260} color="rgba(31,122,99,0.09)" className="about-intro__mark" />
+            <LogoMark className="about-intro__mark" />
             <h2 className="h3">Software is no longer just for big companies.</h2>
             <p>
               AvenSofts was founded with one belief: every ambitious business, from a family-run distributor to a

@@ -1,4 +1,4 @@
-import { Bug, Package, Stethoscope, Building2, Factory, GraduationCap } from 'lucide-react'
+import { Bug, Package, Stethoscope, Building2, Factory, GraduationCap, ShoppingBag, UtensilsCrossed } from 'lucide-react'
 
 // Illustrative case studies showing how AvenSofts systems run real-world businesses.
 // Metrics are indicative of typical implementations; replace with client results as you publish them.
@@ -369,6 +369,130 @@ export const caseStudies = [
     trendLabel: 'Admissions per month',
     stack: ['React Native', 'Next.js', 'Python', 'Django', 'LlamaIndex', 'PostgreSQL', 'Firebase'],
     outcome: 'Admissions, fees and parent updates run on autopilot, so teachers can focus on teaching.',
+  },
+  {
+    slug: 'd2c-shopify-brand',
+    icon: ShoppingBag,
+    industry: 'D2C & E-commerce',
+    title: 'How a D2C brand scaled online sales with Shopify, ERP sync and AI marketing',
+    short: 'A fast custom Shopify store, inventory synced with the warehouse ERP, Meta ads into a CRM and AEO content that gets the brand recommended by AI.',
+    solution: 'Shopify + ERP Sync + Meta & AEO',
+    timeline: '6 weekly sprints',
+    team: '3 engineers + 2 marketers',
+    services: ['shopify', 'erp', 'meta', 'seo'],
+    results: [
+      { v: 2.1, s: 'x', l: 'online revenue in 6 months' },
+      { v: 48, s: '%', l: 'faster page loads' },
+      { v: 0, s: ' oversells', l: 'after live stock sync' },
+    ],
+    challenge:
+      'A skincare brand sold on a slow template store, managed stock in spreadsheets and ran Meta ads without knowing which ones produced buyers. Orders were oversold during sales, repeat customers were never followed up and the brand was invisible in AI search.',
+    pains: [
+      'Slow, generic store with high mobile drop-off',
+      'Stock updated by hand, leading to oversold orders',
+      'Ad spend not tracked to actual purchases',
+      'No repeat-purchase or abandoned-cart follow-up',
+      'Not appearing in Google or AI assistant answers',
+    ],
+    modules: ['Custom Shopify Theme', 'Shopify–ERP Stock Sync', 'Order & Dispatch Automation', 'Abandoned Cart WhatsApp', 'Customer CRM & Segments', 'Meta Pixel + Conversions API', 'Product Schema & AEO Content', 'Sales Dashboard'],
+    flow: [
+      { who: 'Customer', t: 'Finds the brand', x: 'Meta ads, Google results and AI assistants (thanks to AEO content and product schema) bring shoppers to the store.' },
+      { who: 'Shopify', t: 'Shops a fast store', x: 'A custom Online Store 2.0 theme loads quickly on mobile, with bundles, reviews and one-tap UPI checkout.' },
+      { who: 'ERP', t: 'Stock syncs live', x: 'Every order reduces warehouse stock instantly; marketplaces and the store share one inventory, so nothing oversells.' },
+      { who: 'Warehouse', t: 'Packs & ships', x: 'Orders arrive as pick lists, shipping labels are generated automatically and tracking goes to the customer on WhatsApp.' },
+      { who: 'CRM', t: 'Brings customers back', x: 'Abandoned carts and reorder reminders go out on WhatsApp and email, based on each customer’s purchase cycle.' },
+      { who: 'Owner', t: 'Sees what sells', x: 'Revenue, ad return, best sellers, stock cover and repeat rate on one dashboard.' },
+    ],
+    table: {
+      title: 'What is connected across the store',
+      cols: ['System', 'Data synced', 'Automation'],
+      rows: [
+        ['Shopify store', 'Orders, customers, carts', 'Webhooks to ERP & CRM'],
+        ['ERP / warehouse', 'Stock by SKU & batch', 'Live inventory sync'],
+        ['Shipping', 'Labels, AWB, status', 'Tracking on WhatsApp'],
+        ['Meta Ads', 'Purchases, value', 'Conversions API'],
+        ['CRM', 'Segments, reorder date', 'Cart & reorder flows'],
+      ],
+    },
+    dashboard: [
+      { l: 'Orders today', v: '412' }, { l: 'Return on ad spend', v: '4.6x' },
+      { l: 'Repeat customers', v: '38%' }, { l: 'Stock cover', v: '24 days' },
+    ],
+    compare: [
+      { k: 'Mobile load time (s)', before: 5.8, after: 3 },
+      { k: 'Cart abandonment (%)', before: 78, after: 61 },
+      { k: 'Oversold orders / mo', before: 46, after: 0 },
+      { k: 'Repeat purchase (%)', before: 19, after: 38 },
+    ],
+    trend: [
+      { m: 'Jan', v: 14 }, { m: 'Feb', v: 15 }, { m: 'Mar', v: 18 }, { m: 'Apr', v: 21 },
+      { m: 'May', v: 24 }, { m: 'Jun', v: 26 }, { m: 'Jul', v: 29 }, { m: 'Aug', v: 31 },
+    ],
+    trendLabel: 'Online revenue (₹ lakh / month)',
+    stack: ['Shopify', 'Liquid', 'Shopify Functions', 'Node.js', 'PostgreSQL', 'Meta Conversions API', 'WhatsApp Business API'],
+    outcome: 'The store, warehouse and marketing now work as one system, so growth comes from repeat customers instead of only more ad spend.',
+  },
+  {
+    slug: 'restaurant-chain-pos',
+    icon: UtensilsCrossed,
+    industry: 'Restaurants & Cloud Kitchens',
+    title: 'How a restaurant chain connected POS, kitchen, inventory and online orders',
+    short: 'One system for dine-in and delivery orders, kitchen display screens, recipe-based stock deduction, AI purchase planning and outlet-wise profit.',
+    solution: 'POS + Kitchen Display + Inventory ERP',
+    timeline: '8 weekly sprints',
+    team: '5 engineers',
+    services: ['erp', 'app', 'custom-ai', 'custom-software'],
+    results: [
+      { v: 32, s: '%', l: 'less food wastage' },
+      { v: 40, s: '%', l: 'faster kitchen ticket times' },
+      { v: 8, s: ' outlets', l: 'on one live dashboard' },
+    ],
+    challenge:
+      'A chain of six restaurants and two cloud kitchens took orders from dine-in, Swiggy, Zomato and phone calls on separate tablets. Kitchens missed orders at peak time, stock was counted by hand weekly and the owner could not see which outlet or dish actually made money.',
+    pains: [
+      'Orders from 4 channels on separate devices',
+      'Kitchen tickets lost or delayed at rush hour',
+      'Ingredient usage and wastage never measured',
+      'Purchases planned by guesswork every morning',
+      'Profit per outlet and per dish unknown',
+    ],
+    modules: ['Unified POS', 'Aggregator Order Sync', 'Kitchen Display System', 'Recipe & BOM Costing', 'Ingredient Inventory', 'AI Purchase Planner', 'Staff & Shift App', 'Outlet P&L Dashboard'],
+    flow: [
+      { who: 'Customer', t: 'Orders any way', x: 'Dine-in at the table, QR menu, phone, Swiggy or Zomato: every order lands in one POS queue.' },
+      { who: 'Kitchen', t: 'Kitchen display screen', x: 'Orders appear by station (tandoor, curry, beverages) with timers, so nothing is missed at rush hour.' },
+      { who: 'ERP', t: 'Stock deducted by recipe', x: 'Each dish sold deducts its exact ingredients (e.g. 180 g paneer, 40 ml cream), so stock is always up to date.' },
+      { who: 'AI', t: 'Plans tomorrow’s purchases', x: 'AI forecasts tomorrow’s demand by outlet, day and weather, and drafts the morning purchase list.' },
+      { who: 'Manager', t: 'Logs wastage & closing', x: 'Managers record wastage with reasons and close the day in the app; variances are flagged automatically.' },
+      { who: 'Owner', t: 'Profit by outlet & dish', x: 'Sales, food cost %, wastage and profit per outlet and per dish, live on the owner’s phone.' },
+    ],
+    table: {
+      title: 'Recipe-based stock tracking (example dishes)',
+      cols: ['Dish', 'Ingredients deducted', 'Food cost', 'Alert when'],
+      rows: [
+        ['Paneer Tikka', 'Paneer 180 g, curd 40 g, spices 12 g', '₹78', 'Paneer < 5 kg'],
+        ['Butter Chicken', 'Chicken 220 g, butter 30 g, cream 40 ml', '₹112', 'Variance > 4%'],
+        ['Veg Biryani', 'Rice 160 g, mixed veg 120 g, ghee 15 g', '₹64', 'Rice < 20 kg'],
+        ['Cold Coffee', 'Milk 250 ml, coffee 8 g, ice cream 60 g', '₹38', 'Milk < 10 L'],
+        ['Masala Dosa', 'Batter 200 g, potato 120 g, oil 15 ml', '₹31', 'Batter < 8 kg'],
+      ],
+    },
+    dashboard: [
+      { l: 'Orders today', v: '2,184' }, { l: 'Avg ticket time', v: '11 min' },
+      { l: 'Food cost', v: '29.4%' }, { l: 'Wastage today', v: '₹3,120' },
+    ],
+    compare: [
+      { k: 'Ticket time (min)', before: 19, after: 11 },
+      { k: 'Food cost (%)', before: 36, after: 29 },
+      { k: 'Wastage (% of stock)', before: 9, after: 6 },
+      { k: 'Missed orders / week', before: 34, after: 2 },
+    ],
+    trend: [
+      { m: 'Jan', v: 41 }, { m: 'Feb', v: 43 }, { m: 'Mar', v: 47 }, { m: 'Apr', v: 52 },
+      { m: 'May', v: 55 }, { m: 'Jun', v: 58 }, { m: 'Jul', v: 63 }, { m: 'Aug', v: 67 },
+    ],
+    trendLabel: 'Monthly orders (thousands)',
+    stack: ['React.js', 'Flutter', 'Node.js', 'Golang', 'PostgreSQL', 'Redis', 'Python (forecasting)', 'AWS'],
+    outcome: 'Every order, ingredient and rupee across all outlets runs through one system, so the owner manages by numbers instead of daily phone calls.',
   },
 ]
 

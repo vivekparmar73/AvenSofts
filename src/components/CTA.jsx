@@ -9,7 +9,7 @@ export default function CTA() {
       <div className="container">
         <Reveal className="cta">
           <div className="cta__glow" />
-          <LogoMark size={340} color="rgba(63,184,147,0.08)" className="cta__mark" />
+          <LogoMark light className="cta__mark" />
           <span className="pill pill--dark"><span className="pulse" /> Taking new projects this month</span>
           <BlurText as="h2" className="h2 cta__title" text="Your next big leap starts with one week." accent={[6]} />
           <p className="cta__sub">Book a free 30-minute call. We will map your business flow and show you what can be built, automated and launched in your first sprint, with no obligation.</p>

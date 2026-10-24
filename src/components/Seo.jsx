@@ -22,7 +22,7 @@ export default function Seo({ title, description, path = '/', jsonLd }) {
     setMeta('property', 'og:description', description)
     setMeta('property', 'og:url', url)
     setMeta('property', 'og:type', 'website')
-    setMeta('property', 'og:image', `${site.url}/og-image.png`)
+    setMeta('property', 'og:image', `${site.url}/brand/og-image.png`)
     setMeta('name', 'twitter:card', 'summary_large_image')
     setMeta('name', 'twitter:title', full)
     setMeta('name', 'twitter:description', description)

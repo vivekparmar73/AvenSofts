@@ -28,3 +28,13 @@ npm run preview
 ## Deploy
 
 Works on Vercel (`vercel.json`) and Netlify (`public/_redirects`) with client-side routing.
+
+## Brand assets
+
+`public/logo.png` is the official logo. `public/brand/` holds the versions used on the site
+(trimmed logo, white-text logo for dark backgrounds, "A" mark, favicons, share image).
+Regenerate them after changing the logo with:
+
+```bash
+python scripts/generate-brand.py .
+```

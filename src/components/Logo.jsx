@@ -1,28 +1,28 @@
-const PATH = 'M14 52 L32 13 L50 52 H28'
+// Brand assets in /public/brand are generated from the official /public/logo.png.
+// logo.png / logo-light.png: full wordmark for light / dark backgrounds.
+// logo-mark.png / logo-mark-light.png: the "A" mark on its own.
 
-export function LogoMark({ size = 32, color = 'var(--green)', className = '' }) {
+export function LogoMark({ light = false, className = '', style }) {
   return (
-    <svg className={className} width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
-      <path d={PATH} fill="none" stroke={color} strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <img
+      src={light ? '/brand/logo-mark-light.png' : '/brand/logo-mark.png'}
+      alt=""
+      aria-hidden="true"
+      className={className}
+      style={style}
+      draggable="false"
+    />
   )
 }
 
-// The "A" cropped exactly to its stroke bounds, so it can sit flush against the wordmark
-// text like the official logo. Sized in em: height matches the font's cap height.
-export function LogoMarkTight({ color = 'var(--green)', className = '' }) {
+export default function Logo({ light = false, height = 30, className = '' }) {
   return (
-    <svg className={`logo-mark-tight ${className}`} viewBox="10 9 44 47" aria-hidden="true">
-      <path d={PATH} fill="none" stroke={color} strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-export default function Logo({ light = false, size = 30 }) {
-  return (
-    <span className={`logo ${light ? 'logo--light' : ''}`} aria-label="AvenSofts" style={{ fontSize: size * 0.8 }}>
-      <LogoMarkTight color={light ? '#3fb893' : 'var(--green)'} />
-      <span className="logo__text">venSofts</span>
-    </span>
+    <img
+      src={light ? '/brand/logo-light.png' : '/brand/logo.png'}
+      alt="AvenSofts"
+      className={`logo ${className}`}
+      style={{ height }}
+      draggable="false"
+    />
   )
 }
