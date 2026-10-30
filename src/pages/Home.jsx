@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 import {
-  ArrowUpRight, Sparkles, Zap, Rocket, ShieldCheck, Bot, CheckCircle2, CalendarDays,
-  Gauge, Handshake, PauseCircle, BadgeCheck,
+  ArrowRight, ArrowUpRight, Sparkles, Zap, Rocket, ShieldCheck, Bot, CheckCircle2, CalendarDays,
+  Gauge, Handshake, PauseCircle, BadgeCheck, PlayCircle, ReceiptText, PackageCheck, GitMerge,
 } from 'lucide-react'
 import Reveal, { BlurText, Counter, SectionHead } from '../components/Reveal'
 import { ServicesGrid, TechTabs, Marquee } from '../components/Sections'
@@ -18,54 +18,123 @@ import { caseStudies } from '../data/caseStudies'
 
 const ease = [0.22, 1, 0.36, 1]
 
-function HeroVisual() {
+const heroWords = ['websites', 'mobile apps', 'ERP systems', 'CRMs', 'AI agents', 'Shopify stores', 'custom software']
+
+const feed = [
+  { icon: ReceiptText, text: 'Invoice #1043 sent on WhatsApp' },
+  { icon: Bot, text: 'AI agent booked a demo with a new lead' },
+  { icon: PackageCheck, text: 'Low stock: purchase order drafted' },
+  { icon: GitMerge, text: 'Feature "Bulk billing" merged & tested' },
+]
+
+// Cycles through items on an interval, swapping them with a short blur transition.
+function useCycle(length, ms) {
+  const [i, setI] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setI((v) => (v + 1) % length), ms)
+    return () => clearInterval(id)
+  }, [length, ms])
+  return i
+}
+
+function RotatingWord() {
+  const i = useCycle(heroWords.length, 2200)
+  return (
+    <motion.span layout className="hero__rotator" transition={{ layout: { duration: 0.45, ease } }}>
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={heroWords[i]}
+          className="hero__rotator-word"
+          initial={{ y: '60%', opacity: 0, filter: 'blur(8px)' }}
+          animate={{ y: 0, opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+          exit={{ y: '-60%', opacity: 0, filter: 'blur(8px)' }}
+          transition={{ duration: 0.45, ease }}
+        >
+          {heroWords[i]}
+        </motion.span>
+      </AnimatePresence>
+    </motion.span>
+  )
+}
+
+function LiveFeed() {
+  const i = useCycle(feed.length, 2800)
+  const { icon: Icon, text } = feed[i]
+  return (
+    <div className="dash__feed">
+      <span className="dash__feed-label"><span className="pulse" /> Live activity</span>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={text}
+          className="dash__feed-item"
+          initial={{ opacity: 0, x: 12 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -12 }}
+          transition={{ duration: 0.35, ease }}
+        >
+          <Icon size={14} /> {text}
+        </motion.span>
+      </AnimatePresence>
+    </div>
+  )
+}
+
+function HeroVisual({ progress }) {
   const bars = [
     { label: 'CRM & lead capture', v: 100 },
     { label: 'AI follow-up agent', v: 86 },
     { label: 'ERP billing module', v: 64 },
     { label: 'Mobile sales app', v: 38 },
   ]
+  // The dashboard starts tilted back in 3D and flattens as the visitor scrolls.
+  const rotateX = useTransform(progress, [0, 0.45], [16, 0])
+  const scale = useTransform(progress, [0, 0.45], [0.94, 1])
+
   return (
     <motion.div
       className="hero-visual"
-      initial={{ opacity: 0, y: 60, filter: 'blur(16px)' }}
-      animate={{ opacity: 1, y: 0, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
-      transition={{ duration: 1, delay: 0.5, ease }}
+      initial={{ opacity: 0, y: 70 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.1, delay: 0.6, ease }}
     >
-      <div className="dash">
-        <div className="dash__bar">
-          <span /><span /><span />
-          <div className="dash__url">app.yourbusiness.com / sprint-04</div>
-        </div>
-        <div className="dash__body">
-          <div className="dash__head">
-            <div>
-              <small>Sprint 04 · Week of delivery</small>
-              <h4>Shipping your business OS</h4>
-            </div>
-            <span className="pill pill--green"><span className="pulse" /> Live</span>
+      <div className="hero-visual__glow" />
+      <motion.div className="hero-visual__tilt" style={{ rotateX, scale }}>
+        <div className="dash">
+          <div className="dash__bar">
+            <span /><span /><span />
+            <div className="dash__url">app.yourbusiness.com / sprint-04</div>
           </div>
-          <div className="dash__rows">
-            {bars.map((b, i) => (
-              <div key={b.label} className="dash__row">
-                <div className="dash__row-top"><span>{b.label}</span><b>{b.v}%</b></div>
-                <div className="dash__track">
-                  <motion.span
-                    initial={{ width: 0 }}
-                    animate={{ width: `${b.v}%` }}
-                    transition={{ duration: 1.6, delay: 1.2 + i * 0.18, ease }}
-                  />
-                </div>
+          <div className="dash__body">
+            <div className="dash__head">
+              <div>
+                <small>Sprint 04 · Week of delivery</small>
+                <h4>Shipping your business OS</h4>
               </div>
-            ))}
-          </div>
-          <div className="dash__kpis">
-            <div><small>Features shipped</small><b><Counter to={42} /></b></div>
-            <div><small>Hours automated / mo</small><b><Counter to={310} /></b></div>
-            <div><small>Lead response</small><b>&lt;<Counter to={2} /> min</b></div>
+              <span className="pill pill--green"><span className="pulse" /> Live</span>
+            </div>
+            <LiveFeed />
+            <div className="dash__rows">
+              {bars.map((b, i) => (
+                <div key={b.label} className="dash__row">
+                  <div className="dash__row-top"><span>{b.label}</span><b>{b.v}%</b></div>
+                  <div className="dash__track">
+                    <motion.span
+                      initial={{ width: 0 }}
+                      animate={{ width: `${b.v}%` }}
+                      transition={{ duration: 1.6, delay: 1.3 + i * 0.18, ease }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="dash__kpis">
+              <div><small>Features shipped</small><b><Counter to={42} /></b></div>
+              <div><small>Hours automated / mo</small><b><Counter to={310} /></b></div>
+              <div><small>Lead response</small><b>&lt;<Counter to={2} /> min</b></div>
+            </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <motion.div className="float-chip float-chip--a"
         animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}>
@@ -79,42 +148,69 @@ function HeroVisual() {
   )
 }
 
+// Thin light streaks shooting across the background: the "light speed" motif.
+const streaks = [
+  { top: 14, w: 180, d: 5.5, delay: 0 }, { top: 26, w: 260, d: 7, delay: 2.2 },
+  { top: 38, w: 140, d: 4.6, delay: 1.1 }, { top: 52, w: 220, d: 6.2, delay: 3.4 },
+  { top: 64, w: 160, d: 5, delay: 0.6 }, { top: 76, w: 240, d: 7.4, delay: 4.1 },
+]
+
 function Hero() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   // Parallax only the background glow; the content itself stays crisp while scrolling.
   const orbY = useTransform(scrollYProgress, [0, 1], [0, 200])
 
+  const onMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    e.currentTarget.style.setProperty('--hx', `${e.clientX - r.left}px`)
+    e.currentTarget.style.setProperty('--hy', `${e.clientY - r.top}px`)
+  }
+
   return (
-    <section className="hero" ref={ref}>
+    <section className="hero" ref={ref} onMouseMove={onMove}>
       <div className="hero__grid-bg" />
+      <div className="hero__spot" />
+      <div className="hero__streaks" aria-hidden="true">
+        {streaks.map((s, i) => (
+          <span key={i} style={{ top: `${s.top}%`, width: s.w, animationDuration: `${s.d}s`, animationDelay: `${s.delay}s` }} />
+        ))}
+      </div>
       <motion.div className="hero__orb hero__orb--1" style={{ y: orbY }} />
       <motion.div className="hero__orb hero__orb--2" style={{ y: orbY }} />
       <div className="container hero__inner">
-        <motion.span
-          className="pill"
+        <motion.div
           initial={{ opacity: 0, y: 12, filter: 'blur(8px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
           transition={{ duration: 0.8, delay: 0.1, ease }}
         >
-          <Sparkles size={14} /> AI-powered era of software delivery
-        </motion.span>
+          <Link to="/services/automation" className="hero__badge">
+            <span className="hero__badge-new">New</span>
+            AI-powered era of software delivery
+            <ArrowRight size={14} />
+          </Link>
+        </motion.div>
         <BlurText as="h1" className="h1 hero__title" delay={0.2}
           text="Software delivery at light speed." accent={[3, 4]} />
-        <Reveal as="p" delay={0.55} className="hero__sub">
-          AvenSofts builds the websites, apps, ERP, CRM and custom AI systems that run and grow your business,
-          shipped in one-week sprints by AI-native engineers. No tech knowledge needed. Just ambition.
+        <Reveal delay={0.5} className="hero__we-build">
+          We build <RotatingWord /> for your business.
         </Reveal>
-        <Reveal delay={0.7} className="hero__actions">
-          <Link to="/contact" className="btn btn--dark btn--lg">Start your first sprint <ArrowUpRight size={18} /></Link>
-          <Link to="/process" className="btn btn--ghost btn--lg">See how we work</Link>
+        <Reveal as="p" delay={0.6} className="hero__sub">
+          Websites, apps, ERP, CRM and custom AI that run and grow your business, shipped in one-week sprints
+          by AI-native engineers. No tech knowledge needed. Just ambition.
         </Reveal>
-        <Reveal delay={0.85} className="hero__trust">
+        <Reveal delay={0.75} className="hero__actions">
+          <Link to="/contact" className="btn btn--dark btn--lg btn--shine">Start your first sprint <ArrowUpRight size={18} /></Link>
+          <Link to="/process" className="btn btn--ghost btn--lg"><PlayCircle size={18} /> See how we work</Link>
+        </Reveal>
+        <Reveal delay={0.9} className="hero__trust">
           <span><Zap size={15} /> Live demo every week</span>
+          <i />
           <span><ShieldCheck size={15} /> First-sprint guarantee</span>
+          <i />
           <span><Rocket size={15} /> Start in 48 hours</span>
         </Reveal>
-        <HeroVisual />
+        <HeroVisual progress={scrollYProgress} />
       </div>
     </section>
   )

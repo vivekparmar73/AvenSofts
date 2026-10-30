@@ -38,7 +38,7 @@ export default function Navbar() {
       transition={{ duration: 0.9, ease }}
     >
       <div className="nav__inner">
-        <Link to="/" className="nav__brand" aria-label="AvenSofts home"><Logo height={30} /></Link>
+        <Link to="/" className="nav__brand" aria-label="AvenSofts home"><Logo className="nav__logo" height="auto" /></Link>
         <nav className="nav__links" aria-label="Main">
           <div className="nav__drop" onMouseEnter={() => setMega(true)} onMouseLeave={() => setMega(false)}>
             <NavLink to="/services" className={({ isActive }) => `nav__link ${isActive ? 'is-active' : ''}`}>
